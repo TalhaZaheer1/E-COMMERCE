@@ -34,12 +34,14 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    shipping:{
+    freeShipping:{
         type: Boolean,
         default: false
     },
-    totalQuantity:Number,
-    totalPrice:Number
+    stock:{
+        type:Number,
+        required:true
+    },
 })
 
 module.exports = mongoose.model("Product",productSchema);

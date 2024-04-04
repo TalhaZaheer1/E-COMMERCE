@@ -38,6 +38,7 @@ async function getProductById(id){
 }
 
 async function addNewProduct(product){
+    product.totalPrice = product.price;
     return await productsModel.create(product)
 }
 

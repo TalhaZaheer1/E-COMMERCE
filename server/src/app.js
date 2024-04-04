@@ -5,6 +5,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")
 const passport = require("passport")
 const v1Router = require("./routes/v1Router")
+const { errorMiddleware } = require("./services/utils");
 
 const app = express();
 require("./services/passport");
@@ -32,5 +33,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/v1",v1Router)
+app.use(errorMiddleware)
 
 module.exports = app;

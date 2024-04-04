@@ -19,14 +19,6 @@ const userSchema = new mongoose.Schema({
         type: Number,
     },
     role: String,
-    cart:{
-        items:{
-            type: [ mongoose.Schema.Types.ObjectId ],
-            ref: "Product"
-        },
-        totalQuantity:Number,
-        totalPrice:Number
-    }
 })
 
 module.exports = mongoose.model("User",userSchema);

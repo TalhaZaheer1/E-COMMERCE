@@ -15,25 +15,25 @@ async function httpRegisterUser(req,res,next){
     const { name,email,password,password_confirmation } = req.body
     if(!(name && email && password && password_confirmation)){
         const error = new CustomError("missing input fields",400)
-        next(error)
+        return next(error)
     }
     if(password !== password_confirmation){
         const error = new CustomError("password not confirmed",400)
-        next(error)
+        return next(error)
     }
     const user = await registerUser({name,email,password})
     if(user.isAlreadyPresent){
         const error = new CustomError("user already registered",400)
-        next(error)
+        return next(error)
     }
     if(user.databaseError){
         const error = new CustomError("database error",500)
-        next(error)
+        return next(error)
     }
     // const token = jwt.sign({ userId:user._id },TOKEN_SECRET,{ expiresIn:"1h" });
-    res.json({
-        user
-    }) 
+    req.session.passport.user = user;
+    res.setHeader("set-cookie",["SID",req.session._id])
+    res.send(200).end();
 }
 
 function httpLogoutUser(req,res,next){
@@ -71,11 +71,12 @@ async function httpAddToCart(req,res,next){
     const cart = req.session.cart
     const updatedCart = await addToCart(cart,productId);
     if(updatedCart.matchedCount === 0){
-        const error = new CustomError("product not found",400)
-        next(error)
+        const error = new CustomError("product not found",400);
+        return next(error)
     }
     req.session.cart = updatedCart
     res.json({
+        cart:updatedCart,
         msg:"item added to cart"
     })
 }
@@ -85,11 +86,12 @@ async function httpRemoveFromCart(req,res,next){
     const cart = req.session.cart
     const updatedCart = await removeFromCart(cart,productId);
     if(updatedCart.matchedCount === 0){
-        const error = new CustomError("user not found",400)
-        next(error)
+        const error = new CustomError("product not found",400);
+        return next(error)
     }
     req.session.cart = updatedCart
     res.json({
+        cart:updatedCart,
         msg:"item removed from cart"
     })
 }
@@ -104,6 +106,7 @@ async function httpClearCart(req,res,next){
     const emptyCart = clearCart(req.session.cart)
     if(emptyCart)
         res.json({
+            cart:req.session.cart,
             msg:"cart is empty"
         })
 }

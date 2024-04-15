@@ -15,10 +15,10 @@ async function httpGetAllProducts(req, res) {
 
 async function httpGetProductById(req, res, next) {
   const id = req.params.id;
-  if (!id) {
-    const error = new CustomError("missing product id", 400);
-    next(error);
-  }
+  // if (!id) {
+  //   const error = new CustomError("missing product id", 400);
+  //   next(error);
+  // }
   const product = await getProductById(id);
   if (product.matchedCount === 0) {
     const error = new CustomError("invalid product id", 404);

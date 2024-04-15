@@ -1,0 +1,16 @@
+.underLineHome{
+    position: relative;
+    cursor: pointer;
+}
+.underLineHome::before{
+    content: "";
+    height: 3px;
+    width: 100%;
+    position: absolute;
+    bottom: -1px;
+    background: white;
+    transition: width .2s ease;
+}
+.underLineHome:hover::before{
+    width: 0;
+}

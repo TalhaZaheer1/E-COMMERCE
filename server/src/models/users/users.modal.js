@@ -69,21 +69,24 @@ async function registerUser(newUser) {
 // }
 
 async function addToCart(cart, productId) {
+  console.log(cart)
   try {
     for(let i = 0;i<cart.items.length;i++){
       const item = cart.items[i];
-      const product = cart.items[i].product;
+      const product = cart.items[i].details;
       if(product._id === productId){
         item.totalQuantity += 1
-        item.totalPrice = item.totalPrice + product.price;
+        item.totalPrice = item.totalPrice +  product.price;
+        item.totalPrice = +parseFloat(item.totalPrice).toFixed(2)
         cart.totalQuantity += 1;
         cart.totalPrice += product.price;
-        return;
+        cart.totalPrice = +parseFloat(cart.totalPrice).toFixed(2);
+        return cart;
       }
     }
 
-    const product = await productsModel.findOne({ _id: productId }).lean();
-    if(!product)
+    const details = await productsModel.findOne({ _id: productId }).lean();
+    if(!details)
       return { matchedCount: 0 };
     // const isModified = await usersModel.updateOne(
     //   { _id: id },
@@ -95,13 +98,13 @@ async function addToCart(cart, productId) {
     // if (isModified.matchedCount !== 1 || isModified.modifiedCount !== 1)
     //   return { matchedCount: 0 };
     const newItem = {
-      product,
+      details,
       totalQuantity:1,
-      totalPrice:product.price,
+      totalPrice:details.price,
     }
     cart.items.push(newItem);
     cart.totalQuantity += 1;
-    cart.totalPrice += product.price;
+    cart.totalPrice += details.price;
     return cart;
   } catch (err) {
     console.log(err);
@@ -111,29 +114,35 @@ async function addToCart(cart, productId) {
 
 function removeItem(allItems, productId) {
   for (let i = 0; i < allItems.length; i++) {
-    if (allItems[i].product._id.toString() === productId) {
+    if (allItems[i].details._id.toString() === productId) {
+      const productPrice = allItems[i].details.price; 
       allItems[i] = null;
-      return allItems;
+      return { newNullItems:allItems, productPrice };
+    }else if(i === allItems.length - 1){
+      return { notFound: true }
     }
   }
 }
 
 async function removeFromCart(cart, productId) {
-  try {
     for(let i = 0;i<cart.items.length;i++){
       const item = cart.items[i];
-      const product = cart.items[i].product;
+      const product = cart.items[i].details;
       if(product._id === productId && item.totalQuantity > 1){
         item.totalQuantity -= 1
-        item.totalPrice =  item.totalPrice - product.price
+        item.totalPrice =  item.totalPrice - product.price;
+        item.totalPrice = +parseFloat(item.totalPrice).toFixed(2)
         cart.totalQuantity -= 1;
         cart.totalPrice -= product.price;
-        return;
+        cart.totalPrice = +parseFloat(cart.totalPrice).toFixed(2);
+        return cart;
       }
     }
     // const user = await usersModel.findOne({ _id: id }, { _id: 0, cart: 1 });
     // const cart = user.cart;
-    const newNullItems = removeItem(cart.items, productId);
+    const { newNullItems, productPrice, notFound } = removeItem(cart.items, productId);
+    if(notFound)
+      return { matchedCount: 0 }
     const newItems = newNullItems.filter((item) => item !== null);
     // const isModified = await usersModel.updateOne(
     //   { _id: id },
@@ -146,12 +155,9 @@ async function removeFromCart(cart, productId) {
     //   return { matchedCount: 0 };
     cart.items = newItems;
     cart.totalQuantity -= 1;
-    cart.totalPrice -= product.price;
+    cart.totalPrice -= productPrice;
+    cart.totalPrice = +parseFloat(cart.totalPrice).toFixed(2);
     return cart;
-  } catch (err) {
-    console.log(err);
-    return { matchedCount: 0 };
-  }
 }
 
 function clearCart(cart) {

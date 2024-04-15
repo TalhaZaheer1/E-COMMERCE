@@ -32,10 +32,11 @@ class CustomError extends Error {
 //     }
 // }
 
-function errorMiddleware(error,req,res){
+function errorMiddleware(error,req,res,next){
+    console.log("yayyyyy")
     res.status(error.statusCode).json({
-        code:error.statusCode,
         message:error.message,
+        statusCode:error.statusCode
     })
 }
 

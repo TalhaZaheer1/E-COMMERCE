@@ -1,5 +1,6 @@
 import heroShoesMob from "../../assets/homepage/heroShoesMob.avif"
 import brownShoesMob from "../../assets/homepage/brownShoesMob.jpg";
+import blackShoesMob from "../../assets/homepage/blackShoesMob.jpg";
 
 
 
@@ -8,6 +9,7 @@ const initialState = {
   user: {},
   products:[ {
     sneakerName:"VOLA",
+    heroImage:heroShoesMob,
     variants:[
       {
     name:"VOLA POLAR GREY SNEAKERS",
@@ -23,7 +25,65 @@ const initialState = {
     oldPrice:"199.00",
     thumbnail:brownShoesMob,
   },
-]}],
+  {
+    name:"VOLA BROWN SNEAKERS",
+    material:"Recycled wool",
+    price:"129.00",
+    oldPrice:"199.00",
+    thumbnail:brownShoesMob,
+  },  {
+    name:"VOLA BROWN SNEAKERS",
+    material:"Recycled wool",
+    price:"129.00",
+    oldPrice:"199.00",
+    thumbnail:brownShoesMob,
+  },  {
+    name:"VOLA BROWN SNEAKERS",
+    material:"Recycled wool",
+    price:"129.00",
+    oldPrice:"199.00",
+    thumbnail:brownShoesMob,
+  },
+]},
+{
+  sneakerName:"VOLA",
+  heroImage:blackShoesMob,
+  variants:[
+    {
+  name:"VOLA POLAR GREY SNEAKERS",
+  material:"Recycled wool",
+  price:"129.00",
+  oldPrice:"199.00",
+  thumbnail:heroShoesMob,
+},
+{
+  name:"VOLA BROWN SNEAKERS",
+  material:"Recycled wool",
+  price:"129.00",
+  oldPrice:"199.00",
+  thumbnail:brownShoesMob,
+},
+{
+  name:"VOLA BROWN SNEAKERS",
+  material:"Recycled wool",
+  price:"129.00",
+  oldPrice:"199.00",
+  thumbnail:brownShoesMob,
+},{
+  name:"VOLA BROWN SNEAKERS",
+  material:"Recycled wool",
+  price:"129.00",
+  oldPrice:"199.00",
+  thumbnail:brownShoesMob,
+},{
+  name:"VOLA BROWN SNEAKERS",
+  material:"Recycled wool",
+  price:"129.00",
+  oldPrice:"199.00",
+  thumbnail:brownShoesMob,
+},
+]}
+],
   cart: {},
   error:"yoyoyo"
 };

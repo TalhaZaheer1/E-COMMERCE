@@ -12,6 +12,9 @@ import { useEffect, useState } from "react";
 import NavDetails from "./NavDetails";
 import "./navBar.css";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import Cart from "./Cart";
+import Collection from "../../pages/Collection/Collection";
 
 export default function NavBar() {
   const [hover, setHover] = useState(null);
@@ -22,7 +25,7 @@ export default function NavBar() {
   const [secondSlider, setSecondSlider] = useState(null);
   const [cartOpen,setCartOpen] = useState(false);
   const products = useSelector(state => state.products);
-
+  const {pathname} = useLocation()
 
   useEffect(() => {
     document.addEventListener("scroll", () => {
@@ -41,7 +44,6 @@ export default function NavBar() {
         setAnime(false);
       }, 200);
   }, [isClosed]);
-
   
   return (
     <>
@@ -54,6 +56,7 @@ export default function NavBar() {
           className={`h-fit mobileNav ${
             !isClosed ? "mobileNav-open text-black" : ""
           } ${scrolled || cartOpen ? "mobileNav-scroll-open text-black" : ""}
+          ${pathname.includes("collection") && "text-black"}
           overflow-hidden`}
         >
           <div className="flex justify-between items-center">
@@ -405,6 +408,7 @@ export default function NavBar() {
           </div>
         </div>
         {hover ? <NavDetails hover={hover} setHover={setHover} products={products} /> : null}
+        <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />
       </nav>
     </>
   );

@@ -16,6 +16,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@iconscout/react-unicons": "^2.0.2",
     "axios": "^1.6.8",
+    "e-commmerce": "file:..",
     "framer-motion": "^11.0.28",
     "hamburger-react": "^2.5.0",
     "react": "^18.2.0",

@@ -38,8 +38,8 @@ export default function Home() {
                 <h1 className="text-[2rem]">AXOLO LINEN</h1>
             </div>
             <div className="flex justify-around w-full mb-16 text-[2rem] ">
-                <HomeLink left={left} setLeft={setLeft} text="WOMAN" />
-                <HomeLink left={left} setLeft={setLeft} text="MAN" />
+                <HomeLink to="collection/women" left={left} setLeft={setLeft} text="WOMAN" />
+                <HomeLink to="collection/men" left={left} setLeft={setLeft} text="MAN" />
             </div>
         </article>
         <article className="flex flex-col justify-end items-center text-white h-screen relative z-10">

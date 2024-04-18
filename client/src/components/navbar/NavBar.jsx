@@ -56,7 +56,7 @@ export default function NavBar() {
           className={`h-fit mobileNav ${
             !isClosed ? "mobileNav-open text-black" : ""
           } ${scrolled || cartOpen ? "mobileNav-scroll-open text-black" : ""}
-          ${pathname.includes("collection") && "text-black"}
+          ${pathname.includes("collection") || pathname.includes("product") && "text-black"}
           overflow-hidden`}
         >
           <div className="flex justify-between items-center">

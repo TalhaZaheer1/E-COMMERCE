@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export default function Cart({ cartOpen, setCartOpen }) {
+    // TODO:Change this hook
     const cart = useGetCart();
     return (
         <section className={`bg-white flex transition-transform duration-500 flex-col justify-start h-screen w-[100vw] md:max-w-[750px] absolute top-0 right-0 pt-[6rem] z-[-2] text-black

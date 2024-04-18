@@ -1,0 +1,9 @@
+.crossed {
+    background: 
+        linear-gradient(to top left,
+            rgba(0,0,0,0) 0%,
+            rgba(0,0,0,0) calc(50% - 1.7px),
+            rgba(0,0,0,.2) 50%,
+            rgba(0,0,0,0) calc(50% + 1.7px),
+            rgba(0,0,0,0) 100%);
+}

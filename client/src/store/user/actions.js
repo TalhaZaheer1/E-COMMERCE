@@ -3,6 +3,7 @@ const SET_USER = "GET_USER";
 const SET_LOADING = "SET_LOADING";
 const SET_CART = "SET_CART";
 const SET_ERROR = "SET_ERROR"; 
+const SET_CART_OPEN = "SET_CART_OPEN";
 
 const setProducts = (payload) => {
     return {
@@ -35,11 +36,18 @@ const setError = (payload) => {
         payload
     }
 }
+const setCartOpen = (payload) => {
+    return {
+        type:SET_CART_OPEN,
+        payload
+    }
+}
 
 export {
     setProducts,
     setLoading,
     setCart,
     setUser,
-    setError
+    setCartOpen,
+    setError,
 }

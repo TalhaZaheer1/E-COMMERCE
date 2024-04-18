@@ -85,6 +85,7 @@ const initialState = {
 ]}
 ],
   cart: {},
+  cartOpen:{},
   error:"yoyoyo"
 };
 
@@ -114,7 +115,12 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           error: action.payload,
-        };
+      };
+      case "SET_CART_OPEN":
+        return {
+          ...state,
+          cartOpen:action.payload
+        }
     default: return state
   }
 };

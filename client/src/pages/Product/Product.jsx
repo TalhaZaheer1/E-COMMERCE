@@ -86,7 +86,7 @@ function Product() {
   const product = dummyProduct;
   return (
     <div>
-      <h1>adhkasdhkasdh</h1>
+      
       <ProductInfo />
     </div>
   )

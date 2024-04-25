@@ -30,7 +30,7 @@ export default function NavBar() {
   useEffect(() => {
     document.addEventListener("scroll", () => {
       const y = window.scrollY; 
-      if (y >= 340) setScrolled(true);
+      if (y >= 50) setScrolled(true);
       else setScrolled(false);
     });
   }, []);

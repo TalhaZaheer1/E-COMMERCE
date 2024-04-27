@@ -2,20 +2,21 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import ReactStars from "react-rating-stars-component";
+import { setCartOpen } from "../../store/user/actions";
+import { Rating,Star } from '@smastrom/react-rating'
+
 import Circle from "@uiw/react-color-circle";
 import { colorNameToHex, hexToColorName } from "../../utils/colorChanger";
-import UseAnimation from "react-useanimations";
+import UseAnimation from "react-useanimations/index";
 import plusToX from "react-useanimations/lib/plusToX";
-import { NormalCaraousel, TitleCaraousel } from "./Caraousel";
+import { NormalCaraousel, TitleCaraousel, DropDownCaraousel } from "./Caraousel";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome/index";
+import { faSearch } from "@fortawesome/free-solid-svg-icons/index";
 
-import { setCartOpen } from "../../store/user/actions";
 import "./product.css";
-
+import '@smastrom/react-rating/style.css'
+import "react-lazy-load-image-component/src/effects/blur.css";
 //temp images
 import blackShoesMob from "../../assets/homepage/blackShoesMob.jpg";
 import blackShoesMobSmall from "../../assets/homepage/blackShoesMob-small.jpg";
@@ -33,8 +34,9 @@ import sideStiching from "../../assets/ProductPage/side_stitching.avif";
 import sideStichingSmall from "../../assets/ProductPage/side_stitching-small.avif";
 
 const product = {
+  tag:"Axolo - Lin - Men",
   title: "AXOLO LINEN SNEAKERS",
-  gender: "women",
+  gender: "men",
   available: true,
   colors: {
     classic: ["blue", "beige", "pink", "white", "lightgrey"],
@@ -219,7 +221,7 @@ const product = {
     ],
   },
   reviews: {
-    rating: 95,
+    rating: 4.5,
     all: [],
   },
 };
@@ -227,6 +229,9 @@ const product = {
 function ProductInfo(/*{product}*/) {
   const dispatch = useDispatch();
   const { paramColor } = useParams();
+  const [ caraouselDrop,setCaraouselDrop ] = useState(false);
+  const [ selectedSlide,setSelectedSlide ] = useState(null)
+  const cartOpen = useSelector((state) => state.cartOpen);
   const [selectedColor, setSelectedColor] = useState(
     paramColor || product.colors.classic[0]
   );
@@ -237,20 +242,23 @@ function ProductInfo(/*{product}*/) {
   const [selectedSize, setSelectedSize] = useState(
     variant.sizes[0]?.title || 41
   );
-  const cartOpen = useSelector((state) => state.cartOpen);
 
   return (
-    <article className="md:pt-[8rem]">
+    <article className="md:pt-[8rem] h-[100%] relative">
+      <DropDownCaraousel images={variant.images} selectedSlide={selectedSlide} caraouselDrop={caraouselDrop} setCaraouselDrop={setCaraouselDrop} />
+      
       <div className="x-md:hidden">
         <NormalCaraousel images={variant.images} />
       </div>
       <div className="x-md:flex mb-[5rem]">
-        {/*Images container that replaces caraousel*/}
+        {/*Images container that replace caraousel*/}
         <div className="hidden x-md:grid auto-rows-auto h-fit grid-cols-2 gap-x-2 gap-y-1">
           {variant.images.map((img, index) => (
             <div 
             className={` ${index === 0 && "col-[1/3]"} relative cursor-pointer`}
-
+            onClick={() => {
+              setCaraouselDrop(true)
+              setSelectedSlide(index)}}
             >
               <ImageHoverIcon />
               <LazyLoadImage
@@ -265,6 +273,7 @@ function ProductInfo(/*{product}*/) {
             </div>
           ))}
         </div>
+        {/*Product details selection div*/}
         <div className="x-md:w-[40%] x-md:px-10">
           <div className="px-5 pt-5 md:px-8 text-[#212322]">
             <h1 className="text-[1.4rem] md:text-3xl font-bold">
@@ -274,10 +283,17 @@ function ProductInfo(/*{product}*/) {
               {selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1)}
             </h2>
             <div className="flex gap-3">
-              <ReactStars
-                edit={false}
+              <Rating
+                className="max-w-20"
+                readOnly={true}
                 value={product.reviews.rating}
-                color={"#000000"}
+                itemStyles={{
+                  itemShapes:Star,
+                  activeFillColor:"#000000",
+                  itemStrokeWidth:2,
+                  activeStrokeColor:"#000000",
+                }
+                }
               />
               <p className="font-semibold text-black text-opacity-60">
                 {product.reviews.all.length + " "} Reviews
@@ -388,7 +404,9 @@ function ProductInfo(/*{product}*/) {
               ))}
             </div>
             <div className="flex justify-center">
-              <button className="bg-black mt-6 mb-2 py-7 w-full max-w-[400px]  rounded-full text-white text-opacity-80 text-sm font-semibold">
+              <button 
+              onClick={() => dispatch(setCartOpen(true))}
+              className="bg-black mt-6 mb-2 py-7 w-full max-w-[400px]  rounded-full text-white text-opacity-80 text-sm font-semibold">
                 Add To Cart
               </button>
             </div>
@@ -430,7 +448,7 @@ function ProductInfo(/*{product}*/) {
             ))}
           </div>
         </div>
-      </div>
+      </div> 
       <div className="px-4 text-[#212322] max-w-[470px] mx-auto x-md:max-w-[980px]">
         {product.description.detailedSpecs.map((spec, index) => (
           <div

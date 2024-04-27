@@ -1,95 +1,65 @@
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 import ProductInfo from "../../components/productPage/ProductInfo";
+import Reviews from "../../components/productPage/Reviews";
 
+//temp images
+import blackShoesMob from "../../assets/homepage/blackShoesMob.jpg";
+import blackShoesMobSmall from "../../assets/homepage/blackShoesMob-small.jpg";
+import brownShoesMob from "../../assets/homepage/brownShoesMob.jpg";
+import brownShoesMobSmall from "../../assets/homepage/brownShoesMob-small.jpg";
+import heroShoesMob from "../../assets/homepage/heroShoesMob.avif";
+import heroShoesMobSmall from "../../assets/homepage/heroShoesMob-small.avif";
+import freshLinen from "../../assets/ProductPage/fresh_lin.avif";
+import freshLinenSmall from "../../assets/ProductPage/fresh_lin-small.avif";
+import robustCanvas from "../../assets/ProductPage/robust_canvas.avif";
+import robustCanvasSmall from "../../assets/ProductPage/robust_canvas-small.avif";
+import nonSlip from "../../assets/ProductPage/non_slip.avif";
+import nonSlipSmall from "../../assets/ProductPage/non_slip-small.avif";
+import sideStiching from "../../assets/ProductPage/side_stitching.avif";
+import sideStichingSmall from "../../assets/ProductPage/side_stitching-small.avif";
 
-const dummyProduct = {
-  title:"AXOLO LINEN SNEAKERS",
-  gender:"men",
-  available:true,
-  colors:[
-    "blue",
-    "baige",
-    "pink",
-    "white",
-    "grey"
-  ],
-  variants:[
-    {
-      name:"AXOLO-LINEN BAIGE",
-      price:"134.00",
-      color:{
-        title:"baige",
-        type:"classic"
-      },
-      images:[""],
-      sizes:[
-        {
-          title:41,
-          available:true
-        }
-      ]
-    }
-  ],
-  description:{
-    imageSet:[
+const product = {
+  reviews: {
+    totalRating: 5.0,
+    totalNumber: 44,
+    details: {
+      fiveStar: 33,
+      fourStar: 0,
+      threeStar: 1,
+      twoStar: 0,
+      oneStar: 0,
+    },
+    all: [
       {
-        title:"Robust canvas",
-        image:""
-      }
-    ],
-    specs:[
-      {
-        title:"R-CO-Recycled cotton",
-        desc:"Breathable,comfortable,soft"
-      }
-    ],
-    info:[
-      {
-        title:"Shipping & Return",
-        subHeadings:[
-          {
-            title:"Return",
-            header:"The return is offered in Pakistan",
-            para:""
+        user: {
+          //_id
+          userName: "Talha Z.",
+        },
+        rating: 3,
+        title: "BAU TAIT!",
+        para: "fits great,feels great,lasted long,happy with my descision",
+        createdOn: "",
+        productDetails: {
+          product: {
+            //_id
+            tag: "Axolo - Lin - Men",
           },
-          {
-            title:"",
-            header:"We recommend washing by hand",
-            para:""
-          }
-        ]
-      }
+          color: "blue",
+          size: 45,
+        },
+      },
     ],
-    detailedSpecs:[
-      {
-        image:"",
-        title:"",
-        subHeadings:{
-          header:"",
-          para:{
-            bold:"",
-            normal:""
-          }
-        }
-      }
-    ]
   },
-  reviews:{
-    rating:7.8,
-    all:[]
-  }
-}
-
+};
 
 function Product() {
-  const { productId,variantName } = useParams();
-  const product = dummyProduct;
+  const { productId, variantName } = useParams();
   return (
-    <div>
-      
+    <div className="h-[100%]">
       <ProductInfo />
+      <Reviews reviews={product.reviews} />
     </div>
-  )
+  );
 }
 
-export default Product
+export default Product;

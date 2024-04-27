@@ -1,11 +1,13 @@
 import { useState } from "react"
 import { useGetCart } from "../../hooks/useGetCart";
+import { useDispatch } from "react-redux";
 import heroShoesMob from "../../assets/homepage/heroShoesMob.avif"
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export default function Cart({ cartOpen, setCartOpen }) {
+    const dispatch = useDispatch()
     // TODO:Change this hook
     const cart = useGetCart();
     return (
@@ -20,7 +22,7 @@ export default function Cart({ cartOpen, setCartOpen }) {
                     <p className="text-2xl">$165.00 <span className="text-sm">TTC</span></p>
                 </div>
                 <button
-                    onClick={() => setCartOpen(false)}
+                    onClick={() => dispatch(setCartOpen(false))}
                     className="block w-[95%] mb-3 text-[.9rem] border-[1px] border-black py-3 mx-auto text-slate-500">Continue Shopping</button>
                 <button className="w-full py-5 bg-black font-semibold text-white">Order</button>
             </div>

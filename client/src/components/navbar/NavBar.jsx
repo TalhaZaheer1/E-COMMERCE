@@ -11,19 +11,21 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NavDetails from "./NavDetails";
 import "./navBar.css";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import { setCartOpen } from "../../store/user/actions"
 import { useLocation } from "react-router-dom";
 import Cart from "./Cart";
 import Collection from "../../pages/Collection/Collection";
 
 export default function NavBar() {
+  const dispatch = useDispatch();
   const [hover, setHover] = useState(null);
   const [isClosed, setIsClosed] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [anime, setAnime] = useState(false);
   const [slider, setSlider] = useState(null);
   const [secondSlider, setSecondSlider] = useState(null);
-  const [cartOpen,setCartOpen] = useState(false);
+  const cartOpen = useSelector(state => state.cartOpen);
   const products = useSelector(state => state.products);
   const {pathname} = useLocation()
 
@@ -50,7 +52,7 @@ export default function NavBar() {
       <nav
         className={`${
           hover ? "bg-white text-black" : "bg-transparent  text-white"
-        } fixed top-0 w-full pt-2 pl-5 pr-2 z-50 lg:pt-10 lg:px-12`}
+        } fixed top-0 w-full pt-2 pl-5 pr-2 z-30 lg:pt-10 lg:px-12`}
       >
         <div
           className={`h-fit mobileNav ${
@@ -60,7 +62,7 @@ export default function NavBar() {
           overflow-hidden`}
         >
           <div className="flex justify-between items-center">
-            <h1 className="font-bold tracking-[.4em] text-[2.2rem]  transition-all duration-300 lg:text-[1.7rem] lg:tracking-[.3em]">
+            <h1 className=" font-[900] tracking-[.3em] text-[1.7rem]  transition-all duration-300 lg:text-[1.7rem] lg:tracking-[.3em]">
               UBAC
             </h1>
             <div className="flex gap-14 text-xs font-bold content-center">
@@ -78,7 +80,7 @@ export default function NavBar() {
                 <FontAwesomeIcon className="p-0 text-[1.1rem]" icon={faUser} />
                 </Link>
                 <button>
-                <FontAwesomeIcon onClick={() => setCartOpen(true)} icon={faShoppingBag} className="text-[1.1rem]" />
+                <FontAwesomeIcon onClick={() => dispatch(setCartOpen(true))} icon={faShoppingBag} className="text-[1.1rem]" />
                 </button>
               </div>
               <div className="flex justify-center gap-1 lg:hidden">
@@ -95,9 +97,9 @@ export default function NavBar() {
                     !isClosed ? "rounded-full bg-slate-100" : null
                   } bg-transparent transition-all duration-300 py-3 px-6 relative`}
                 >
-                  <FontAwesomeIcon onClick={() => setCartOpen(true)} className={`transition-opacity text-[1.3rem] translate-x-1 duration-600 ease-linear ${cartOpen ? "opacity-0" : "opacity-1"}`} icon={faShoppingBag} size="2x" />
+                  <FontAwesomeIcon onClick={() => dispatch(setCartOpen(true))} className={`transition-opacity text-[1.3rem] translate-x-1 duration-600 ease-linear ${cartOpen ? "opacity-0" : "opacity-1"}`} icon={faShoppingBag} size="2x" />
                   <FontAwesomeIcon icon={faX}
-                  onClick={() => setCartOpen(false)} 
+                  onClick={() => dispatch(setCartOpen(false))} 
                   className={`text-[1.4rem] text-white bg-black py-[19px] px-[21px] rounded-full absolute transition-all duration-300 opacity-0 scale-0 top-[.2rem] left-[.5rem]
                   ${cartOpen ? "scale-100 opacity-100" : ""}
                   `} />
@@ -121,20 +123,20 @@ export default function NavBar() {
           </div>
           <div className="relative lg:hidden">
             <div
-              className={`flex-col text-[1.5rem] font-semibold px-7 closedMenu pt-14  ${
+              className={`flex-col text-[1.3rem] font-semibold px-7 closedMenu pt-14  ${
                 isClosed ? "" : `openedMenu`
               } ${anime ? "openedMenu1" : "closedMenu1"} `}
             >
               <div
                 onClick={() => setSlider("woman")}
-                className="flex justify-between mb-8 cursor-pointer"
+                className="flex justify-between mb-12 cursor-pointer"
               >
                 <p>WOMEN</p>
                 <FontAwesomeIcon icon={faChevronRight} />
               </div>
               <div
                 onClick={() => setSlider("man")}
-                className="flex justify-between mb-8 cursor-pointer"
+                className="flex justify-between mb-12 cursor-pointer"
               >
                 <p>MAN</p>
                 <FontAwesomeIcon icon={faChevronRight} />
@@ -148,11 +150,11 @@ export default function NavBar() {
               </div>
             </div>
             <div
-              className={`text-[1.7rem] px-5 pt-14 font-semibold transition-transform duration-300 ease-in-out bg-white h-screen w-full ${
+              className={`text-[1.25rem] px-5 pt-12 font-semibold transition-transform duration-300 ease-in-out bg-white h-screen w-full ${
                 slider === "woman" ? "translate-x-0" : "translate-x-[100%]"
               }  absolute top-0 lg:hidden`}
             >
-              <div className="flex justify-center items-center mb-10">
+              <div className="flex justify-center items-center mb-14">
                 <FontAwesomeIcon
                   onClick={() => setSlider(null)}
                   className="mr-auto fa-xs cursor-pointer"
@@ -162,7 +164,7 @@ export default function NavBar() {
               </div>
               <div
                 onClick={() => setSecondSlider("sneakersWomen")}
-                className="flex justify-between items-center mb-6 cursor-pointer"
+                className="flex justify-between items-center mb-8 cursor-pointer"
               >
                 <p>Sneakers</p>
                 <FontAwesomeIcon className="fa-xs" icon={faChevronRight} />
@@ -176,11 +178,11 @@ export default function NavBar() {
               </div>
             </div>
             <div
-              className={`text-[1.5rem] font-semibold px-5 pt-14 transition-transform duration-300 ease-in-out bg-white h-screen w-full ${
+              className={`text-[1.25rem] font-semibold px-5 pt-12 transition-transform duration-300 ease-in-out bg-white h-screen w-full ${
                 slider === "man" ? "translate-x-0" : "translate-x-[100%]"
               }  absolute top-0 lg:hidden`}
             >
-              <div className="flex justify-center items-center mb-10">
+              <div className="flex justify-center items-center mb-14">
                 <FontAwesomeIcon
                   onClick={() => setSlider(null)}
                   className="mr-auto fa-xs cursor-pointer"
@@ -190,7 +192,7 @@ export default function NavBar() {
               </div>
               <div
                 onClick={() => setSecondSlider("sneakersMen")}
-                className="flex justify-between items-center mb-3 cursor-pointer"
+                className="flex justify-between items-center mb-10 cursor-pointer"
               >
                 <p>Sneakers</p>
                 <FontAwesomeIcon className="fa-xs" icon={faChevronRight} />

@@ -85,7 +85,7 @@ const initialState = {
 ]}
 ],
   cart: {},
-  cartOpen:{},
+  cartOpen:false,
   error:"yoyoyo"
 };
 

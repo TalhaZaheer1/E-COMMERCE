@@ -19,6 +19,56 @@
 .hoverAnimationClose{
     transition: transform .3s ease
 }
+.dropDownCaraousel{
+    transition: all .6s cubic-bezier(.1,1,.8,1);
+}
+.slideButton::before{
+    content: "";
+    position: absolute;
+    top: -96%;
+    left: -135%;
+    border: 1px dashed rgba(0, 0, 0, 0.452);
+    border-radius: 100%;
+    padding: 2.3rem;
+    transform: scale(1);
+    transition: all .3s ease;
+}
+.slideButton:hover::before{
+     transform: scale(1.5); 
+}
+.slideButton::after{
+    content: "";
+    position: absolute;
+    top: -136%;
+    left: -184%;
+    border: 1px solid rgba(0, 0, 0, 0.452);
+    border-radius: 100%;
+    padding: 3rem;
+    transform: scale(1);
+    transition: all .3s ease;
+
+}
+.slideButton:hover::after{
+    transform: scale(.8);
+}
+.slideArrow{
+    transition: transform .3s ease;
+}
+.slideArrow:hover{
+    transform: scale(.8);
+}
+.starParent * *{
+    border:2px solid black;
+}
+.reviewBar::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: black;
+}
+
 
 @keyframes dropDown {
     from { grid-template-rows: 0fr; }

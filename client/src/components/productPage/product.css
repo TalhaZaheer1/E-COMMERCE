@@ -68,6 +68,19 @@
     height: 100%;
     background-color: black;
 }
+.ratingDetails>div{
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    max-height: 18px;
+    margin-bottom: .3rem;
+}
+
+.ratingDetails>div>p{
+    font-size: .8rem;
+    color: rgba(0, 0, 0, 0.493);
+}
+
 
 
 @keyframes dropDown {

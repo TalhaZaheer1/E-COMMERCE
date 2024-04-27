@@ -20,7 +20,7 @@ import sideStichingSmall from "../../assets/ProductPage/side_stitching-small.avi
 
 const product = {
   reviews: {
-    totalRating: 5.0,
+    totalRating: 2.4,
     totalNumber: 44,
     details: {
       fiveStar: 33,
@@ -31,19 +31,49 @@ const product = {
     },
     all: [
       {
-        user: {
-          //_id
-          userName: "Talha Z.",
-        },
+        customerName:"Talha Z.",
         rating: 3,
         title: "BAU TAIT!",
         para: "fits great,feels great,lasted long,happy with my descision",
-        createdOn: "",
+        createdOn: "07/5/2024",
         productDetails: {
-          product: {
-            //_id
-            tag: "Axolo - Lin - Men",
-          },
+          tag: "Axolo - Lin - Men",
+          color: "blue",
+          size: 45,
+        },
+      },
+      {
+        customerName:"Talha Z.",
+        rating: 3,
+        title: "BAU TAIT!",
+        para: "fits great,feels great,lasted long,happy with my descision",
+        createdOn: "07/5/2024",
+        productDetails: {
+          tag: "Axolo - Lin - Men",
+          color: "blue",
+          size: 45,
+        },
+      },
+      {
+        customerName:"Talha Z.",
+        rating: 3,
+        title: "BAU TAIT!",
+        para: "fits great,feels great,lasted long,happy with my descision",
+        createdOn: "07/5/2024",
+        productDetails: {
+          tag: "Axolo - Lin - Men",
+          color: "blue",
+          size: 45,
+        },
+      },
+      {
+        customerName:"Talha Z.",
+        rating: 3,
+        title: "BAU TAIT!",
+        para: "fits great,feels great,lasted long,happy with my descision",
+        createdOn: "07/5/2024",
+        productDetails: {
+          tag: "Axolo - Lin - Men",
           color: "blue",
           size: 45,
         },
@@ -55,7 +85,7 @@ const product = {
 function Product() {
   const { productId, variantName } = useParams();
   return (
-    <div className="h-[100%]">
+    <div className="h-[100%] bg-slate-100">
       <ProductInfo />
       <Reviews reviews={product.reviews} />
     </div>

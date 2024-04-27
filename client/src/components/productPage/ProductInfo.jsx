@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setCartOpen } from "../../store/user/actions";
 import { Rating,Star } from '@smastrom/react-rating'
-
 import Circle from "@uiw/react-color-circle";
 import { colorNameToHex, hexToColorName } from "../../utils/colorChanger";
 import UseAnimation from "react-useanimations/index";
@@ -13,6 +12,7 @@ import { NormalCaraousel, TitleCaraousel, DropDownCaraousel } from "./Caraousel"
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome/index";
 import { faSearch } from "@fortawesome/free-solid-svg-icons/index";
+import { Button } from "../Button/Button"
 
 import "./product.css";
 import '@smastrom/react-rating/style.css'
@@ -404,11 +404,13 @@ function ProductInfo(/*{product}*/) {
               ))}
             </div>
             <div className="flex justify-center">
-              <button 
+              <Button
+              filled 
               onClick={() => dispatch(setCartOpen(true))}
-              className="bg-black mt-6 mb-2 py-7 w-full max-w-[400px]  rounded-full text-white text-opacity-80 text-sm font-semibold">
+              className="mb-3 !max-w-[380px] !h-[68px] mt-5"
+              >
                 Add To Cart
-              </button>
+              </Button>
             </div>
             <p className="text-black text-opacity-40 font-bold text-xs text-center">
               Free Shipping & Returns

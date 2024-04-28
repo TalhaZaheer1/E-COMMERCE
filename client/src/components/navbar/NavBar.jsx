@@ -76,7 +76,7 @@ export default function NavBar() {
                 <Link className="text-[.75rem]" onMouseEnter={() => setHover("newArrival")}>
                   <p className="underLine">NEW ARRIVAL</p>
                 </Link>
-                <Link>
+                <Link to="/account/signup">
                 <FontAwesomeIcon className="p-0 text-[1.1rem]" icon={faUser} />
                 </Link>
                 <button>
@@ -84,14 +84,15 @@ export default function NavBar() {
                 </button>
               </div>
               <div className="flex justify-center gap-1 lg:hidden">
-                <button
+                <Link
+                  to="/account/signup"
                   className={`${
                     !isClosed ? " bg-slate-100" : null
                   } rounded-full border-black bg-transparent transition-all duration-300  py-3 px-6
                   `}
                 >
                   <FontAwesomeIcon className="p-0 text-[1.3rem]" icon={faUser} />
-                </button>
+                </Link>
                 <button
                   className={`${
                     !isClosed ? "rounded-full bg-slate-100" : null

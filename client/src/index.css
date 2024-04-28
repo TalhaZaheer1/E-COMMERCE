@@ -15,4 +15,32 @@ html {
 body{
     font-family: Inter;
 }
+.inputLabel::before{
+    content: attr(data-label);
+    position: absolute;
+    transition: all .5s ease;
+
+}
+.inputLabelDown::before{
+    top:0;
+    opacity: 0;
+}
+.inputLabelUp::before{
+    top:-70%;
+    opacity: 1;
+}
+.inputBottom::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 1px;
+    z-index: 10;
+    background-color: black;
+    transition: all .7s ease;
+}
+.inputBottomActive::after{
+    width: 100%;
+}
   
